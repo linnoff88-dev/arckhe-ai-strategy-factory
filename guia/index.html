@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Strategy Factory — pacote de estratégia de IA gerado por APIs</title>
+<meta name="description" content="App Flask que gera um pacote completo de estratégia de IA (15 documentos, diagramas, apresentações) para qualquer empresa, em minutos, usando Perplexity e Gemini.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0c10; --bg2:#14141b; --card:#16161e; --line:#272730;
+    --txt:#e9e9ee; --mut:#9a9aa6; --amb:#E2A23B; --amb2:#f0c070; --sky:#38bdf8; --pro:#cbd5e1;
+    color-scheme:dark;
+  }
+  body.light{
+    --bg:#f6f7f9; --bg2:#eceef2; --card:#ffffff; --line:#e1e3ea;
+    --txt:#1a1a22; --mut:#5b5b68; --amb:#b9791d; --amb2:#a16207; --sky:#0369a1; --pro:#b45309;
+    color-scheme:light;
+  }
+  body.light .hero .glow{opacity:.5}
+  body.light pre{background:#0e0e14;color:#d6d6e0}
+  body.light pre .c{color:#8a8a98}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.65 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:Sora,sans-serif;line-height:1.15;margin:0}
+  a{color:var(--amb);text-decoration:none}
+  code,pre{font-family:"JetBrains Mono",monospace}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+  .mut{color:var(--mut)} .amb{color:var(--amb)}
+  .chip{display:inline-block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amb);font-weight:600;font-family:Sora}
+  nav{position:sticky;top:0;z-index:30;backdrop-filter:blur(12px);background:rgba(12,12,16,.78);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;gap:22px;height:60px}
+  nav .brand{display:flex;align-items:center;gap:8px;font-family:Sora;font-weight:800;letter-spacing:-.02em;color:var(--amb)}
+  nav .brand .emoji{font-size:1.25rem}
+  nav .sep{color:var(--mut);opacity:.45}
+  nav .inema{color:var(--sky);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .inema:hover{filter:brightness(1.15)}
+  nav .pro{color:var(--pro);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .pro:hover{filter:brightness(1.15)}
+  nav .clubpro{display:inline-flex;align-items:center;gap:6px}
+  nav .links{margin-left:auto;display:flex;align-items:center;gap:20px;font-size:.92rem}
+  nav .links a.sec{color:var(--mut)} nav .links a.sec:hover{color:var(--txt)}
+  .tgl{background:var(--bg2);border:1px solid var(--line);color:var(--txt);width:38px;height:38px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .tgl:hover{border-color:var(--amb)}
+  .btn{display:inline-block;background:var(--amb);color:#1a1206;font-weight:600;padding:.6em 1.05em;border-radius:10px;font-family:Sora}
+  .btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}
+  @media(max-width:760px){nav .links a.sec{display:none}}
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+  .hero .glow{position:absolute;inset:-40% -20% auto auto;width:70%;height:600px;background:radial-gradient(closest-side,rgba(226,162,59,.22),transparent 70%);pointer-events:none}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:74px 22px}
+  .hero h1{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:800;letter-spacing:-.025em}
+  .hero p.lead{font-size:1.18rem;color:var(--mut);margin:1.1em 0 1.6em;max-width:34ch}
+  .hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .hero figure{margin:0;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000}
+  .hero figure img{width:100%;display:block}
+  @media(max-width:780px){.hero .wrap{grid-template-columns:1fr;padding:48px 22px}}
+  section{padding:62px 0;border-bottom:1px solid var(--line)}
+  section h2{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;letter-spacing:-.02em}
+  section .sub{color:var(--mut);margin:.6em 0 2em;max-width:62ch}
+  .grid{display:grid;gap:16px}
+  .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)} .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:820px){.g3,.g4{grid-template-columns:1fr 1fr}}
+  @media(max-width:540px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .card h3{font-size:1.05rem;margin-bottom:.4em}
+  .card p{color:var(--mut);font-size:.92rem;margin:0}
+  .num{display:inline-flex;width:30px;height:30px;align-items:center;justify-content:center;border-radius:8px;background:rgba(226,162,59,.14);color:var(--amb);font-family:Sora;font-weight:800;font-size:.9rem;margin-bottom:.7em}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+  .flow span{background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:.45em .9em;font-size:.85rem;font-family:Sora;font-weight:600}
+  .flow .arr{color:var(--amb);border:none;background:none;padding:0 .1em}
+  pre{background:#0a0a0e;border:1px solid var(--line);border-radius:12px;padding:16px 18px;overflow:auto;font-size:.86rem;line-height:1.6;color:#d6d6e0}
+  pre .c{color:#6f6f7c} pre .k{color:var(--amb2)} pre .s{color:#9ece6a}
+  .step{display:grid;grid-template-columns:46px 1fr;gap:16px;margin-bottom:26px}
+  .step .b{width:46px;height:46px;border-radius:12px;background:var(--amb);color:#1a1206;font-family:Sora;font-weight:800;font-size:1.25rem;display:flex;align-items:center;justify-content:center}
+  .step h3{font-size:1.12rem;margin-bottom:.3em}
+  .step p{color:var(--mut);margin:.2em 0 .7em}
+  .ex{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:680px){.ex{grid-template-columns:1fr}}
+  .ex figure{margin:0;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+  .ex figure img{width:100%;display:block}
+  .ex figcaption{padding:12px 14px;font-size:.88rem;color:var(--mut);background:var(--card)}
+  .phase{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .phase:last-child{border:none}
+  .phase .tag{flex:0 0 92px;font-family:Sora;font-weight:800;color:var(--amb)}
+  .phase .d strong{display:block;margin-bottom:.2em}
+  .phase .d span{color:var(--mut);font-size:.92rem}
+  footer{padding:46px 0;text-align:center;color:var(--mut);font-size:.9rem}
+  .pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.3em .8em;font-size:.78rem;color:var(--mut);margin:0 4px}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="brand" href="#top"><span class="emoji">🏭</span> AI Strategy Factory</a>
+  <span class="sep">|</span>
+  <span class="clubpro">
+    <a class="inema" href="https://inema.club" target="_blank" rel="noopener">INEMA.CLUB</a>
+    <span class="sep">-</span>
+    <a class="pro" href="https://inema.pro" target="_blank" rel="noopener">PRO</a>
+  </span>
+  <div class="links">
+    <a class="sec" href="#oque">O que é</a>
+    <a class="sec" href="#fluxo">Como funciona</a>
+    <a class="sec" href="#guia">Guia de uso</a>
+    <a class="sec" href="#exemplos">Deliverables</a>
+    <a class="sec" href="#roadmap">Roadmap</a>
+    <button class="tgl" id="themeToggle" aria-label="Alternar tema" title="Alternar tema">🌙</button>
+    <a class="btn" href="https://github.com/inematds/ai-strategy-factory" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</div></nav>
+
+<header class="hero" id="top">
+  <div class="glow"></div>
+  <div class="wrap">
+    <div>
+      <span class="chip">IA/Negócios · Flask + Perplexity + Gemini</span>
+      <h1>Uma <span class="amb">consultoria de IA</span> completa a partir de um nome de empresa</h1>
+      <p class="lead">Digite o nome de uma empresa e receba, em minutos, 15 documentos estratégicos, diagramas de arquitetura, apresentações executivas e relatórios — por US$ 0,05 a US$ 0,50 por análise.</p>
+      <div class="cta">
+        <a class="btn" href="#guia">Começar o guia</a>
+        <a class="btn ghost" href="https://github.com/inematds/ai-strategy-factory" target="_blank" rel="noopener">Ver no GitHub</a>
+      </div>
+    </div>
+    <figure><img src="assets/hero.png" alt="Ilustração da AI Strategy Factory: pipeline de pesquisa e síntese de estratégia de IA"></figure>
+  </div>
+</header>
+
+<section id="oque"><div class="wrap">
+  <span class="chip">O que é</span>
+  <h2>Consultoria de IA em caixa</h2>
+  <p class="sub">O AI Strategy Factory automatiza o trabalho que uma consultoria faria manualmente: pesquisar a empresa, analisar maturidade em IA e redigir os documentos de estratégia — do tech inventory ao roadmap de implementação.</p>
+  <div class="grid g3">
+    <div class="card"><h3>🔎 Pesquisa em tempo real</h3><p>A Perplexity AI roda de 9 a 18 queries direcionadas por análise: modelo de negócio, stack de tecnologia, concorrentes, iniciativas de IA e dores da empresa.</p></div>
+    <div class="card"><h3>📄 15 documentos consistentes</h3><p>O Gemini 2.5 Flash sintetiza os achados em 15 templates de deliverable — do tech inventory ao glossário — com qualidade de consultoria.</p></div>
+    <div class="card"><h3>🎁 Saída pronta pra apresentar</h3><p>Gera 2 apresentações PowerPoint, 2 relatórios Word e 5+ diagramas de arquitetura (Mermaid → PNG), tudo localmente, sem depender de serviço externo de export.</p></div>
+  </div>
+</div></section>
+
+<section id="fluxo"><div class="wrap">
+  <span class="chip">Como funciona</span>
+  <h2>3 fases: pesquisa → síntese → geração</h2>
+  <p class="sub">Cada análise passa por um pipeline de 3 fases, com estado salvo em disco a cada etapa — dá pra checar o status ou retomar uma análise interrompida.</p>
+  <div class="flow">
+    <span>Fase 1 · Pesquisa (Perplexity)</span><span class="arr">→</span>
+    <span>Fase 2 · Síntese (Gemini)</span><span class="arr">→</span>
+    <span>Fase 3 · Geração (PPTX/DOCX/PNG)</span>
+  </div>
+  <div class="grid g3" style="margin-top:22px">
+    <div class="card"><h3>1. Pesquisa</h3><p>Overview da empresa, stack de tecnologia, paisagem do setor, iniciativas de IA em curso, dores e prioridades estratégicas. Saída: JSON de pesquisa (<code>research_cache.json</code>).</p></div>
+    <div class="card"><h3>2. Síntese</h3><p>Gemini gera os 15 documentos markdown e o código dos diagramas Mermaid a partir do JSON de pesquisa.</p></div>
+    <div class="card"><h3>3. Geração</h3><p>Renderização local: 2 PPTX, 2 DOCX e as imagens PNG dos diagramas — deliverables prontos para stakeholders.</p></div>
+  </div>
+</div></section>
+
+<section id="pre"><div class="wrap">
+  <span class="chip">Pré-requisitos</span>
+  <h2>O que precisa estar pronto</h2>
+  <p class="sub">Roda localmente (Windows, macOS ou Linux) com Python 3.9+ e duas chaves de API gratuitas.</p>
+  <div class="grid g3">
+    <div class="card"><h3>Python 3.9+</h3><p>Necessário pra rodar o app Flask e o CLI.</p><pre><span class="c"># confira a versão</span>
+<span class="k">python3 --version</span></pre></div>
+    <div class="card"><h3>Chave Perplexity</h3><p>Gratuita, em perplexity.ai → Settings → API. Usada na fase de pesquisa.</p><pre><span class="c"># formato da chave</span>
+<span class="s">pplx-xxxxxxxxxxxxxxxx</span></pre></div>
+    <div class="card"><h3>Chave Gemini</h3><p>Gratuita, em aistudio.google.com/apikey. Usada na fase de síntese dos documentos.</p><pre><span class="c"># formato da chave</span>
+<span class="s">AIzaSyxxxxxxxxxxxxxxxx</span></pre></div>
+  </div>
+</div></section>
+
+<section id="guia"><div class="wrap">
+  <span class="chip">Guia de uso · passo a passo</span>
+  <h2>Do clone à primeira análise</h2>
+  <p class="sub">Comandos reais do repositório — sem placeholders.</p>
+
+  <div class="step"><div class="b">1</div><div>
+    <h3>Clone e configure o ambiente</h3>
+    <p>Cria o virtualenv e instala as dependências (ou use <code>python setup.py</code> para o setup automatizado).</p>
+<pre><span class="k">git clone https://github.com/promptadvisers/ai-strategy-factory.git
+cd ai-strategy-factory
+python3 -m venv venv
+source venv/bin/activate</span>  <span class="c"># macOS/Linux — no Windows: .\venv\Scripts\activate</span>
+<span class="k">pip install -r requirements.txt</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">2</div><div>
+    <h3>Configure as chaves de API</h3>
+    <p>Copie o exemplo de <code>.env</code> e preencha com suas chaves da Perplexity e do Gemini.</p>
+<pre><span class="k">cp .env.example .env</span>  <span class="c"># depois edite .env:</span>
+<span class="s">PERPLEXITY_API_KEY=pplx-xxxxxxxxxxxxxxxxxxxx</span>
+<span class="s">GEMINI_API_KEY=AIzaSyxxxxxxxxxxxxxxxxxxxxxxxxx</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">3</div><div>
+    <h3>Rode a interface web (recomendado)</h3>
+    <p>Sobe o Flask e abre o navegador automaticamente em <code>http://localhost:8888</code>, onde você digita o nome de uma empresa e acompanha o progresso em tempo real.</p>
+<pre><span class="k">python -m strategy_factory.webapp</span>  <span class="c"># abre http://localhost:8888</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">4</div><div>
+    <h3>Ou rode pela linha de comando</h3>
+    <p>O CLI cobre análise rápida, análise com contexto adicional, modo comprehensive (mais caro e detalhado), status e retomada.</p>
+<pre><span class="k">python -m strategy_factory.main run "Stripe"</span>  <span class="c"># análise rápida, ~$0.05, 2-3 min</span>
+<span class="k">python -m strategy_factory.main run "Stripe" --context "B2B payments, fintech"</span>
+<span class="k">python -m strategy_factory.main run "Stripe" --mode comprehensive</span>  <span class="c"># ~$0.50, 5-10 min</span>
+<span class="k">python -m strategy_factory.main status "Stripe"</span>
+<span class="k">python -m strategy_factory.main resume "Stripe"</span>
+<span class="k">python -m strategy_factory.main list</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">5</div><div>
+    <h3>Pegue os deliverables</h3>
+    <p>Cada análise grava seus arquivos numa pasta própria, por empresa, dentro de <code>output/</code> (ignorada pelo git).</p>
+<pre><span class="k">ls output/&lt;empresa-slug&gt;/</span>  <span class="c"># markdown/ presentations/ documents/ mermaid_images/</span></pre>
+  </div></div>
+</div></section>
+
+<section id="exemplos"><div class="wrap">
+  <span class="chip">O que sai da fábrica</span>
+  <h2>15 documentos, em 4 blocos</h2>
+  <p class="sub">Cada análise entrega este pacote completo — do tech inventory ao statement of work.</p>
+  <div class="grid g4">
+    <div class="card"><h3>Avaliação estratégica</h3><p>Tech inventory, mapa de dores por departamento, maturidade de IA (escala 1-5), diagramas Mermaid de arquitetura atual/futura.</p></div>
+    <div class="card"><h3>Planejamento</h3><p>Roadmap 30/60/90/180/360 dias, quick wins, comparação de vendors (build vs buy), consolidação de licenças, calculadora de ROI.</p></div>
+    <div class="card"><h3>Governança</h3><p>Política de uso aceitável de IA, framework de governança de dados, playbook de change management.</p></div>
+    <div class="card"><h3>Recursos + executivo</h3><p>Biblioteca de prompts e de casos de uso por departamento, glossário, 2 apresentações PPTX e 2 relatórios DOCX (incl. statement of work).</p></div>
+  </div>
+</div></section>
+
+<section id="roadmap"><div class="wrap">
+  <span class="chip">Roadmap</span>
+  <h2>Áreas abertas para contribuição</h2>
+  <p class="sub">Listadas pelo próprio projeto como frentes em aberto.</p>
+  <div class="phase"><div class="tag">Providers</div><div class="d"><strong>Mais LLM providers</strong><span>Suporte a OpenAI e Anthropic além de Perplexity/Gemini.</span></div></div>
+  <div class="phase"><div class="tag">Export</div><div class="d"><strong>Exportação em PDF</strong><span>Opção de saída adicional além de PPTX/DOCX/Markdown.</span></div></div>
+  <div class="phase"><div class="tag">Templates</div><div class="d"><strong>Templates por setor</strong><span>Deliverables especializados por indústria.</span></div></div>
+  <div class="phase"><div class="tag">Performance</div><div class="d"><strong>Cache de queries repetidas</strong><span>Reduzir custo/tempo em reanálises da mesma empresa.</span></div></div>
+  <div class="phase"><div class="tag">Escala</div><div class="d"><strong>Processamento em lote</strong><span>Rodar a análise para várias empresas de uma vez.</span></div></div>
+</div></section>
+
+<footer>
+  <div class="wrap">
+    <div class="pill">Python 3.9+</div><div class="pill">Flask</div><div class="pill">Perplexity API</div><div class="pill">Gemini 2.5 Flash</div><div class="pill">python-pptx / python-docx</div>
+    <p style="margin-top:18px">AI Strategy Factory · guia não-oficial ·
+      <a href="https://github.com/inematds/ai-strategy-factory">inematds/ai-strategy-factory</a> ·
+      <a href="https://inema.club">INEMA.CLUB</a></p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var KEY='ai-strategy-factory-theme';
+    var b=document.body, t=document.getElementById('themeToggle');
+    if(localStorage.getItem(KEY)==='light'){ b.classList.add('light'); t.textContent='☀️'; }
+    t.addEventListener('click',function(){
+      var light=b.classList.toggle('light');
+      t.textContent=light?'☀️':'🌙';
+      localStorage.setItem(KEY, light?'light':'dark');
+    });
+  })();
+</script>
+</body>
+</html>
